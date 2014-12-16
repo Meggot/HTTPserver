@@ -1,13 +1,11 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.lang.*;
 
-public class networkAlive {
-  public static void main(String args[]) throws Exception {
-    int port = Integer.parseInt(args[0]);
-    ServerSocket serverSock=new ServerSocket(port);
+public class networkAlive extends Thread{
+  public void start(Socket conn) throws Exception {
     while(true) {
-      Socket conn = serverSock.accept();
       Scanner scanin = new Scanner(conn.getInputStream());
       String line=null;
       int nlines=0;
@@ -27,6 +25,13 @@ public class networkAlive {
       }
       Scanner scanOut = new Scanner(stringArray[0]);
       String command = scanOut.next();
+      if (!command.equals("GET")) {
+		  errorCode = "HTTP/1.0 501 Not Implemented\r\n" +
+		  "Connection: close\r\n" +
+		  "Content-Type: text/html\r\n" +
+		  "\n\r" +
+		  "<h1> Feature not Implemented </h1\r\n";
+		   }
       String resource = scanOut.next();
       String fileName = "www" + resource;
 	try{
