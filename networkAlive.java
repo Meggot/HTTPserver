@@ -4,6 +4,10 @@ import java.util.*;
 import java.lang.*;
 
 public class networkAlive extends Thread{
+	//SingleThreaded Code
+    	//public static void main(String[] args) throws Exception {
+    	//ServerSock serverSock = new ServerSocket(Integer.parseInt(args[0]));
+    	//conn = serverSock.Accept();
   public void start(Socket conn) throws Exception {
     while(true) {
       Scanner scanin = new Scanner(conn.getInputStream());
